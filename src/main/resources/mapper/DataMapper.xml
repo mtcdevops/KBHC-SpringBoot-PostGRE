@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+    [템플릿 설명]  
+    - 해당 파일은 SQL 문을 작성하는 곳입니다.
+-->
+<mapper namespace="com.example.demo.Mapper.DataMapper">
+
+	<select id="selectDataList" resultType="com.example.demo.VO.DataVO">
+		SELECT num,
+			contents,
+			date,
+		FROM data;
+	</select>
+	
+	<insert id="insertData" parameterType="com.example.demo.VO.DataVO">
+
+		INSERT INTO data(contents, date, rw)
+		values (#{contents}, #{date}, #{rw});
+		
+	</insert>
+	
+	<select id="selectCountData" resultType="com.example.demo.VO.DataInfoVO">
+	
+		SELECT
+			(select count(*) from data where rw = 'WW') as "LOCAL_WRITE",
+			(select count(*) from data where rw = 'RR') as "LOCAL_READ",
+			(select count(*) from data where rw = 'W') as "AS_WRITE",
+			(select count(*) from data where rw = 'R') as "AS_READ",
+			count(*) as "TOTAL",
+			CASE
+			    WHEN inet_server_addr()::text LIKE '10.0.2.53%' THEN 'master'
+			    WHEN inet_server_addr()::text LIKE '10.0.2.108%' THEN 'slave1'
+			    WHEN inet_server_addr()::text LIKE '10.0.2.36%' THEN 'slave2'
+			end as host_address
+		FROM data;
+		
+	</select>
+	
+	<select id="selectException" resultType="com.example.demo.VO.DataVO">
+		SELECT	
+				num,
+				contents,
+				date,
+				rw
+		FROM 	
+			 data
+		where 
+			contents like 'Exception%'
+		order by num desc
+	</select>
+	
+	<delete id="deleteExceptionData">
+		delete from data
+		where contents like 'Exception%' ;
+	</delete>
+	
+	<delete id="deleteAllData">
+		delete from data ;
+	</delete>
+	
+	
+	<select id="">
+		SELECT inet_server_addr() AS host_address, inet_server_port() AS port;
+	</select>
+</mapper>
