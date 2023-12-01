@@ -38,11 +38,11 @@ public class DataServiceImp implements DataService {
 	/**
 	 * 1초에 1번 Auto Insert
 	 */
+	@Transactional
 	@Scheduled(fixedDelay = 1000, zone = "Asia/Seoul")
 	public void insertData() {
 		AutoCRUD_thread insert = null;
-		insert = new AutoCRUD_thread("WW",masterSqlSession);
-		System.out.println("master 사용중");
+		insert = new AutoCRUD_thread("master",masterSqlSession);
 		insert.start(); // Thread 시작
 	}
 	
@@ -51,13 +51,13 @@ public class DataServiceImp implements DataService {
 	 * @return 
 	 */
 	@Transactional(readOnly = true)
-	@Scheduled(fixedDelay = 100, zone = "Asia/Seoul")
+	@Scheduled(fixedDelay = 1000, zone = "Asia/Seoul")
 	public DataInfoVO selectCountData() {
 		DataMapper dm = slaveSqlSession.getMapper(DataMapper.class);
+		DataInfoVO dataInfo = dm.selectCountData();
 		AutoCRUD_thread insert = null;
-		insert = new AutoCRUD_thread("RR",masterSqlSession);
+		insert = new AutoCRUD_thread(dataInfo.getHost_address(),masterSqlSession);
 		insert.start(); // Thread 시작
-		System.out.println(dm.selectCountData().getHost_address()+" 사용중");
-		return dm.selectCountData();
+		return dataInfo;
 	}
 }

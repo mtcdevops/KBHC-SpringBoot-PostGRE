@@ -1,6 +1,7 @@
 spring:
   # MySQL DB 설정
   datasource:
+      
     # Resd replica 구성
     master: # Write(Insert, Update, Delete)
       driver-class-name: org.postgresql.Driver
@@ -8,16 +9,15 @@ spring:
       read-only: false
       username: master
       password: megazone!234
-#      
+      hikari:
+      
     slave:  # Read(Select)
       driver-class-name: org.postgresql.Driver
-      jdbc-url: jdbc:postgresql://kms-slave1.postgres.database.azure.com:5432,kms-slave2.postgres.database.azure.com:5432/postgres?loadbalance=true?serverTimezone=UTC
+      jdbc-url: jdbc:postgresql://kms-slave1.postgres.database.azure.com:5432,kms-slave2.postgres.database.azure.com:5432/postgres?serverTimezone=UTC
       read-only: true # Slave DB는 Read만
       username: master
       password: megazone!234
       hikari:
-        pool-name: HikariCP
-        maximum-pool-size: 5
     
   mvc:
     view:
@@ -42,3 +42,7 @@ server:
   servlet:
     encoding:
       charset: UTF-8
+      
+logging:
+  level:
+    '[com.zaxxer.hikari]': DEBUG

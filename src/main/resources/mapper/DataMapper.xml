@@ -16,8 +16,8 @@
 	
 	<insert id="insertData" parameterType="com.example.demo.VO.DataVO">
 
-		INSERT INTO data(contents, date, rw)
-		values (#{contents}, #{date}, #{rw});
+		INSERT INTO data(webServer_name, contents, date, rw)
+		values (#{webServer_name}, #{contents}, #{date}, #{rw});
 		
 	</insert>
 	
@@ -30,9 +30,9 @@
 			(select count(*) from data where rw = 'R') as "AS_READ",
 			count(*) as "TOTAL",
 			CASE
-			    WHEN inet_server_addr()::text LIKE '10.0.2.53%' THEN 'master'
-			    WHEN inet_server_addr()::text LIKE '10.0.2.108%' THEN 'slave1'
-			    WHEN inet_server_addr()::text LIKE '10.0.2.36%' THEN 'slave2'
+			    WHEN inet_server_addr()::text LIKE '10.0.2.108%' THEN 'master'
+			    WHEN inet_server_addr()::text LIKE '10.0.2.53%' THEN 'slave2'
+			    WHEN inet_server_addr()::text LIKE '10.0.2.36%' THEN 'slave1'
 			end as host_address
 		FROM data;
 		

@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor  // 생성자를 사용하지 않도록 선언
 public class DataVO {
     private Integer num;
+    private String webServer_name;
     private String 	contents;
     private Timestamp date;
-    private String rw = "r";
+    private String rw;
 }

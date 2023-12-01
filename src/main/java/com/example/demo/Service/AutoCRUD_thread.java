@@ -1,5 +1,7 @@
 package com.example.demo.Service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,8 +16,7 @@ public class AutoCRUD_thread extends Thread {
 	String rw;
 	private final SqlSession sqlSession;
 	
-	public AutoCRUD_thread(String rw,
-			SqlSession sqlSession) {
+	public AutoCRUD_thread(String rw, SqlSession sqlSession) {
 		super();
 		this.rw = rw;
 		this.sqlSession = sqlSession;
@@ -32,6 +33,11 @@ public class AutoCRUD_thread extends Thread {
 		dataVO.setDate(new Timestamp(System.currentTimeMillis()));
 		dataVO.setContents(Integer.toString(count));
 		dataVO.setRw(rw);
+		try {
+			dataVO.setWebServer_name(InetAddress.getLocalHost().getHostName());
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 		DataMapper dm = sqlSession.getMapper(DataMapper.class);
 		try {
 			dm.insertData(dataVO);

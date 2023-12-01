@@ -1,9 +1,3 @@
-CREATE TABLE data (
-  num serial PRIMARY KEY,
-  contents text,
-  date timestamp DEFAULT NULL,
-  rw varchar(2) NOT NULL
-);
 # PostgreSQL 이중화 테스트 
 - Spring boot : 2.7
 - JDK : 11
@@ -18,8 +12,9 @@ DROP table public."data"
 ```
 CREATE TABLE data (
   num serial PRIMARY KEY,
+  webserver_name varchar(50),
   contents text,
   date timestamp DEFAULT NULL,
-  rw varchar(2) NOT NULL
+  rw varchar(10) NOT NULL
 );
 ```

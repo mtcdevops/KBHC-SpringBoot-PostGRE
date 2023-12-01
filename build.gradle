@@ -36,6 +36,19 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1
 	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+
+	// JUnit5
+	testImplementation("org.junit.platform:junit-platform-launcher:1.5.2") 
+	testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")
+
+	// Qeury Log 설정
+	implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16"
+	
+	// Json 타입 설정
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+	
+	// 화면 자동 반영
+	implementation 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {
