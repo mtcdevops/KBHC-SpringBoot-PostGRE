@@ -36,7 +36,13 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1
 	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
-
+	
+	/* 추가 의존성 */
+	
+	// JSP 관련 의존성 추가
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'javax.servlet:jstl'
+	
 	// JUnit5
 	testImplementation("org.junit.platform:junit-platform-launcher:1.5.2") 
 	testImplementation("org.junit.jupiter:junit-jupiter:5.5.2")

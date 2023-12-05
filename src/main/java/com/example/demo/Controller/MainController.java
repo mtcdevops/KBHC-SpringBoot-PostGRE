@@ -38,13 +38,7 @@ public class MainController {
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("index");
 		HttpSession session = request.getSession(false);
-		
-		if (session == null || session.getAttribute("user") == null) {
-			modelAndView.setViewName("redirect:login");
-			return modelAndView;
-//			return new ModelAndView("login");
-		}
-		
+		logger.debug("ACCESS INDEX PAGE");
 		return modelAndView;
 	}
 	
