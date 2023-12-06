@@ -20,6 +20,8 @@ spring:
       username: master
       password: megazone!234
       hikari:
+      
+#spring:
     
   mvc:
     view:

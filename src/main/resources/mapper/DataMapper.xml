@@ -33,6 +33,7 @@
 			    WHEN inet_server_addr()::text LIKE '10.0.2.108%' THEN 'master'
 			    WHEN inet_server_addr()::text LIKE '10.0.2.53%' THEN 'slave2'
 			    WHEN inet_server_addr()::text LIKE '10.0.2.36%' THEN 'slave1'
+			else 'SLAVE'
 			end as host_address
 		FROM data;
 		
