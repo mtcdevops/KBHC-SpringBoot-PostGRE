@@ -17,4 +17,6 @@ CREATE TABLE data (
   date timestamp DEFAULT NULL,
   rw varchar(10) NOT NULL
 );
+
+
 ```

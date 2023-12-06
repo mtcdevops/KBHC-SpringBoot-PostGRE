@@ -43,6 +43,7 @@ public class DataServiceImp implements DataService {
 	public void insertData() {
 		AutoCRUD_thread insert = null;
 		insert = new AutoCRUD_thread("master",masterSqlSession);
+		logger.info("master ...ing");
 		insert.start(); // Thread 시작
 	}
 	
@@ -58,6 +59,7 @@ public class DataServiceImp implements DataService {
 		AutoCRUD_thread insert = null;
 		insert = new AutoCRUD_thread(dataInfo.getHost_address(),masterSqlSession);
 		insert.start(); // Thread 시작
+		logger.info("slave ...ing");
 		return dataInfo;
 	}
 }

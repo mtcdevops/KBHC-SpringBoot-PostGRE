@@ -38,7 +38,7 @@ public class MainController {
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("index");
 		HttpSession session = request.getSession(false);
-		logger.debug("ACCESS INDEX PAGE");
+		logger.info("ACCESS INDEX PAGE");
 		return modelAndView;
 	}
 	

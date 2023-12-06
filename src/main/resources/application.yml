@@ -6,6 +6,7 @@ spring:
     master: # Write(Insert, Update, Delete)
       driver-class-name: org.postgresql.Driver
       jdbc-url: jdbc:postgresql://kms-master.postgres.database.azure.com:5432/postgres?serverTimezone=UTC
+#      jdbc-url: jdbc:postgresql://kn3-kbh-prd-ocareplus-hic-rdb-psd.postgres.database.azure.com:5432/postgres?serverTimezone=UTC
       read-only: false
       username: master
       password: megazone!234
@@ -14,6 +15,7 @@ spring:
     slave:  # Read(Select)
       driver-class-name: org.postgresql.Driver
       jdbc-url: jdbc:postgresql://kms-slave1.postgres.database.azure.com:5432,kms-slave2.postgres.database.azure.com:5432/postgres?serverTimezone=UTC
+#      jdbc-url: jdbc:postgresql://kn3-kbh-prd-ocareplus-hic-rdb-psd-rp1.postgres.database.azure.com:5432,kn3-kbh-prd-ocareplus-hic-rdb-psd-rp2.postgres.database.azure.com:5432/postgres?serverTimezone=UTC
       read-only: true # Slave DB는 Read만
       username: master
       password: megazone!234
