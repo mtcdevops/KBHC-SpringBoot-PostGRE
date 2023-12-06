@@ -8,14 +8,15 @@
 DROP table public."data"
 ```
 
-## DATA 테이블 생성
+## DATA 테이블 생성 [2023-12-06]
+- 환경이 바뀌면서 rw컬럼에 null이 들어가는 경우가 발생
 ```
 CREATE TABLE data (
   num serial PRIMARY KEY,
   webserver_name varchar(50),
   contents text,
   date timestamp DEFAULT NULL,
-  rw varchar(10) NOT NULL
+  rw varchar(10) NULL
 );
 
 
