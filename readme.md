@@ -22,4 +22,4 @@ CREATE TABLE data (
 
 ```
 
-# [KB헬스케어_PostGRE Replica구성_개발자가이드_v1.0]()
+# [KB헬스케어_PostGRE Replica구성_개발자가이드_v1.0](https://github.com/mtcdevops/KBHC-SpringBoot-PostGRE/blob/master/Document/readme.md)
