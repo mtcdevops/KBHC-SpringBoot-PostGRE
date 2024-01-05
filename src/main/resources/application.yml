@@ -1,5 +1,67 @@
+# 공통 설정
 spring:
-  # MySQL DB 설정
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/views/   # Controller가 리턴시 앞에붙는 경로 명
+      suffix: .jsp              # Controller가 리턴시 뒤에붙는 경로 명
+  # 화면 자동반영 관련 설정
+  devtools:
+    livereload:
+      enabled: true
+      
+## [공통]Mybatis 설정
+mybatis:
+  # default Package location - resultType의 Alias를 지정합니다.
+  type-aliases-package: com.kbhc.blackcode.VO
+  # mapper location - 바라 볼 xml 파일을 지정합니다.
+  mapper-locations: classpath:mapper/*.xml
+  # column name to camel case - 반환 받는 컬럼명을 CamelCase로 받는 설정을 합니다.
+  configuration:
+    map-underscore-to-camel-case: true
+
+## [공통] encoding 설정
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      
+## [공통] 로그설정
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari:
+          HikariConfigMXBean: DEBUG
+          HikariConfig: DEBUG
+          HikariPool: DEBUG
+
+---
+# 로컬 환경 설정
+spring:
+  config:
+    activate:
+      on-profile: default
+  datasource:
+    jdbc-url: jdbc:postgresql://kms-master.postgres.database.azure.com:5432/postgres
+    username: master
+    password: megazone!234
+---
+spring:
+  config:
+    activate:
+      on-profile: prd
+  datasource:
+    jdbc-url: jdbc:postgresql://c-kn3-kbh-dev-ocareplus-hic-test-psd.stidde7gg4fltz.postgres.cosmos.azure.com:5432/citus
+    username: citus
+    password: zpdlql1234!
+---
+# Test 환경 설정
+spring:
+  config:
+    activate:
+      on-profile: test
   datasource:
       
     # Resd replica 구성
@@ -10,7 +72,6 @@ spring:
       read-only: false
       username: master
       password: megazone!234
-      hikari:
       
     slave:  # Read(Select)
       driver-class-name: org.postgresql.Driver
@@ -19,34 +80,20 @@ spring:
       read-only: true # Slave DB는 Read만
       username: master
       password: megazone!234
-      hikari:
-      
-#spring:
-    
-  mvc:
-    view:
-      prefix: /WEB-INF/views/   # Controller가 리턴시 앞에붙는 경로 명
-      suffix: .jsp              # Controller가 리턴시 뒤에붙는 경로 명
-  
-  # 화면 자동반영 관련 설정
-  devtools:
-    livereload:
-      enabled: true
-      
-# Mybatis 설정
-mybatis:
-  # default Package location - resultType의 Alias를 지정합니다.
-  type-aliases-package: com.kbhc.blackcode.VO
-  # mapper location - 바라 볼 xml 파일을 지정합니다.
-  mapper-locations: classpath:mapper/*.xml
-  # column name to camel case - 반환 받는 컬럼명을 CamelCase로 받는 설정을 합니다.
-  configuration:
-    map-underscore-to-camel-case: true
-server:
-  servlet:
-    encoding:
-      charset: UTF-8
-      
-logging:
-  level:
-    '[com.zaxxer.hikari]': DEBUG
+---
+# 개발 환경 설정
+spring:
+  config:
+    activate:
+      on-profile: test2
+  datasource:
+    master:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://c-kn3-kbh-dev-ocareplus-hic-test-psd.stidde7gg4fltz.postgres.cosmos.azure.com:5432/citus
+      username: citus
+      password: zpdlql1234!
+    slave:
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://c-kn3-kbh-dev-ocareplus-hic-test-psd.stidde7gg4fltz.postgres.cosmos.azure.com:5432/citus
+      username: citus
+      password: zpdlql1234!

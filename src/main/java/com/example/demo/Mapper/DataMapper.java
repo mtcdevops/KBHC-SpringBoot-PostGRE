@@ -1,5 +1,6 @@
 package com.example.demo.Mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.VO.DataInfoVO;
@@ -12,9 +13,9 @@ import com.example.demo.VO.DataVO;
  * - xml 파일이 아닌 해당 파일 내에서 처리하려면 @Mapper 어노테이션을 사용하길 권장합니다.
  */
 @Repository
+@Mapper
 public interface DataMapper {
 	
 	int insertData(DataVO dataVo);
-	DataInfoVO selectCountData();
 	
 }

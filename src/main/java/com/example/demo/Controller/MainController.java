@@ -1,11 +1,19 @@
 package com.example.demo.Controller;
 
+import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.example.demo.Service.DataService;
+import com.example.demo.Service.DataServiceImp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,20 +34,49 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2022.09.30
  */
 
-
+@Lazy
 @Slf4j
 @RequestMapping("/")
 @Controller
 public class MainController {
 	
+	static int count;
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final DataService dataService;
 	
-	@GetMapping(value = {"index", ""})
+	@Autowired
+	public MainController(DataService dataService) {
+		this.dataService = dataService;
+	}
+
+	@GetMapping(value = "index")
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("index");
-		HttpSession session = request.getSession(false);
-		logger.info("ACCESS INDEX PAGE");
+		count++;
+		logger.info("ACCESS INDEX PAGE COUNT : "+count);
 		return modelAndView;
 	}
 	
+	@GetMapping("speed")// url : /speed?interval=1000
+	public ResponseEntity<String> adjustSpeed(@RequestParam int interval) {
+		// 컨트롤러에서 받은 값을 서비스로 전달하여 속도 동적 조절
+		
+		// 1초 1회 = 1000
+		// 1초 2회 = 500
+		
+		// 1초 10회 = 100
+		// x * interval = 1000
+		// interval = 1000/x
+		
+		interval = 1000/interval;
+		dataService.setFixedDelay(interval);
+		return ResponseEntity.ok("Speed adjusted to " + interval + " milliseconds");
+	}
+	
+	@GetMapping(value = "test")
+	public ModelAndView page_test(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("test");
+		System.out.println("TEST");
+		return modelAndView;
+	}
 }

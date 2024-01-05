@@ -3,10 +3,14 @@ package com.example.demo.Service;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.example.demo.Mapper.DataMapper;
 import com.example.demo.VO.DataVO;
@@ -20,12 +24,14 @@ public class AutoCRUD_thread extends Thread {
 		super();
 		this.rw = rw;
 		this.sqlSession = sqlSession;
+		
 	}
 	
 	private Logger logger = LoggerFactory.getLogger(AutoCRUD_thread.class);
 	
 	static int count = 0;
 	static String msg = null;
+	
 	@Override
 	public void run() {
 		count ++;

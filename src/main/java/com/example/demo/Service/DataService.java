@@ -4,5 +4,6 @@ import com.example.demo.VO.DataInfoVO;
 
 public interface DataService {
 	public void insertData();
-	public DataInfoVO selectCountData();
+//	public void selectData();
+	public void setFixedDelay(int interval);
 }

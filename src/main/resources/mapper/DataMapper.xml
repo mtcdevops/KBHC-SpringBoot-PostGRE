@@ -21,48 +21,4 @@
 		
 	</insert>
 	
-	<select id="selectCountData" resultType="com.example.demo.VO.DataInfoVO">
-	
-		SELECT
-			(select count(*) from data where rw = 'WW') as "LOCAL_WRITE",
-			(select count(*) from data where rw = 'RR') as "LOCAL_READ",
-			(select count(*) from data where rw = 'W') as "AS_WRITE",
-			(select count(*) from data where rw = 'R') as "AS_READ",
-			count(*) as "TOTAL",
-			CASE
-			    WHEN inet_server_addr()::text LIKE '10.0.2.108%' THEN 'master'
-			    WHEN inet_server_addr()::text LIKE '10.0.2.53%' THEN 'slave2'
-			    WHEN inet_server_addr()::text LIKE '10.0.2.36%' THEN 'slave1'
-			else 'SLAVE'
-			end as host_address
-		FROM data;
-		
-	</select>
-	
-	<select id="selectException" resultType="com.example.demo.VO.DataVO">
-		SELECT	
-				num,
-				contents,
-				date,
-				rw
-		FROM 	
-			 data
-		where 
-			contents like 'Exception%'
-		order by num desc
-	</select>
-	
-	<delete id="deleteExceptionData">
-		delete from data
-		where contents like 'Exception%' ;
-	</delete>
-	
-	<delete id="deleteAllData">
-		delete from data ;
-	</delete>
-	
-	
-	<select id="">
-		SELECT inet_server_addr() AS host_address, inet_server_port() AS port;
-	</select>
 </mapper>
